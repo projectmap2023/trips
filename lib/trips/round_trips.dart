@@ -6,15 +6,15 @@ import 'package:trips/trips/trips_widget/custom_appbar.dart';
 
 late String from;
 late String to;
-late Map trips;
-late List listtrips;
+late List trips;
+
 late Map deslocation;
 late Map srclocation;
 
 class RoundTrips extends StatefulWidget {
   final String fromref;
   final String toref;
-  final Map tripsref;
+  final List tripsref;
   final Map deslocationref;
   final Map srclocationref;
   RoundTrips(
@@ -27,10 +27,7 @@ class RoundTrips extends StatefulWidget {
     from = fromref;
     to = toref;
     trips = tripsref;
-    listtrips = [];
-    trips.forEach((key, value) {
-      listtrips.add(value);
-    });
+
     deslocation = deslocationref;
     srclocation = srclocationref;
   }
@@ -52,38 +49,38 @@ class _RoundTripsState extends State<RoundTrips> {
             ),
             Expanded(
                 child: ListView.builder(
-                    itemCount: listtrips.length,
+                    itemCount: trips.length,
                     itemBuilder: (context, i) {
                       return Container(
                         margin: const EdgeInsets.only(top: 15),
                         child: ListTile(
-                          title: Text("No: ${listtrips[i]['no']}"),
+                          title: Text("No: ${trips[i]['no']}"),
                           subtitle: Text(
-                              "Tripping in: ${listtrips[i]['tripping']} \n Reach in: ${listtrips[i]['reach']} \n Backing in: ${listtrips[i]['back']}"),
+                              "Tripping in: ${trips[i]['tripping']} \n Reach in: ${trips[i]['reach']} \n Backing in: ${trips[i]['back']}"),
                           isThreeLine: true,
                           leading: Icon(
                             Icons.bus_alert,
                             size: 50,
-                            color: (listtrips[i]['status'] == true)
+                            color: (trips[i]['status'] == true)
                                 ? Colors.green
                                 : Colors.red,
                           ),
                           trailing: Icon(
-                            (listtrips[i]['curlocation']['online'] == true)
+                            (trips[i]['curlocation']['online'] == true)
                                 ? Icons.my_location
                                 : Icons.location_disabled,
                             size: 30,
                             color: AppColor.firstColor,
                           ),
                           onTap: () {
-                            if (listtrips[i]['curlocation']['online'] == true) {
+                            if (trips[i]['curlocation']['online'] == true) {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => TripsMap(
                                             deslocation: deslocation,
                                             srclocation: srclocation,
-                                            curlocation: listtrips[i]
+                                            curlocation: trips[i]
                                                 ['curlocation'],
                                           )));
                             } else {
