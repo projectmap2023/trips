@@ -5,12 +5,16 @@ import 'package:trips/auth/auth_widget/signinbutton.dart';
 import 'package:trips/colors.dart';
 import 'package:trips/homepage.dart';
 
+import 'authvalidator.dart';
+
 class PasswordReset extends StatelessWidget {
   const PasswordReset({super.key});
 
   @override
   Widget build(BuildContext context) {
-    double highOfScreen = MediaQuery.of(context).size.height;
+    final TextEditingController password = TextEditingController();
+    AuthValidator valid = AuthValidator();
+    //double highOfScreen = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: AppColor.firstColor,
       body: Container(
@@ -26,7 +30,7 @@ class PasswordReset extends StatelessWidget {
                 image: "assets/passwordrest.png",
               ),
               Container(
-                height: highOfScreen * 0.75,
+                height: 100,
                 width: double.infinity,
                 padding: const EdgeInsets.all(15),
                 decoration: const BoxDecoration(
@@ -43,19 +47,27 @@ class PasswordReset extends StatelessWidget {
                         ),
                         textAlign: TextAlign.center,
                       ),
-                      const CustomTextFormField(
-                        isNumber: false,
+                      CustomTextFormField(
+                        textInputType: TextInputType.text,
                         obscureText: true,
                         iconData: Icons.lock_outlined,
+                        controller: password,
+                        validator: (val) {
+                          return valid.passwordValidator(val!);
+                        },
                         lable: "New password",
                       ),
-                      const CustomTextFormField(
-                        isNumber: false,
+                      CustomTextFormField(
+                        textInputType: TextInputType.text,
                         obscureText: true,
                         iconData: Icons.lock_outlined,
                         lable: "Repassword",
+                        controller: password,
+                        validator: (val) {
+                          return valid.passwordValidator(val!);
+                        },
                       ),
-                      SigninButton(
+                      SignButton(
                         label: "Submit",
                         onTap: () {
                           Navigator.pushReplacement(

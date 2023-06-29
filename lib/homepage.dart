@@ -4,6 +4,8 @@ import 'package:trips/home_widget/one_way.dart';
 import 'package:trips/home_widget/round.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import 'auth/userinfo.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -36,6 +38,14 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: const Color(0xff2b32b2),
           title: const Text("Trips"),
           centerTitle: true,
+          leading: IconButton(
+              icon: const Icon(
+                Icons.person,
+                size: 30,
+              ),
+              onPressed: () {
+                userInfo(context);
+              }),
           bottom: const TabBar(
             indicatorColor: Colors.white,
             indicatorWeight: 3,

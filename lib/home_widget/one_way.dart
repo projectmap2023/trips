@@ -140,7 +140,6 @@ class _OneWayState extends State<OneWay> {
                             ]),
                       ),
                       onTap: () {
-                        print("///////////// ${data['trips']}");
                         Navigator.push(
                             context,
                             MaterialPageRoute(

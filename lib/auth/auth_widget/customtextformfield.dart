@@ -5,32 +5,37 @@ import '../../colors.dart';
 class CustomTextFormField extends StatelessWidget {
   final String lable;
   final IconData iconData;
-  final bool isNumber;
+
+  final TextInputType textInputType;
   final bool? obscureText;
   final void Function()? onTap;
+  final String? Function(String?) validator;
+  final TextEditingController controller;
   const CustomTextFormField(
       {super.key,
       required this.lable,
       required this.iconData,
-      required this.isNumber,
+      required this.textInputType,
       this.obscureText,
-      this.onTap});
+      this.onTap,
+      required this.controller,
+      required this.validator});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(top: 30),
       child: TextFormField(
+        validator: validator,
+        controller: controller,
         obscuringCharacter: "*",
         style: Theme.of(context).textTheme.bodySmall,
         obscureText: obscureText == false || obscureText == null ? false : true,
-        keyboardType: isNumber
-            ? const TextInputType.numberWithOptions(decimal: true)
-            : TextInputType.text,
+        keyboardType: textInputType,
         decoration: InputDecoration(
           suffixIconColor: AppColor.firstColor,
           iconColor: Colors.black,
-          hintText: "Enter $lable",
+          hintText: "Enter your $lable",
           hintStyle: TextStyle(fontSize: 15, color: Colors.grey[350]),
           floatingLabelBehavior: FloatingLabelBehavior.always,
           contentPadding:

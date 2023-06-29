@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:trips/auth/auth_widget/head_of_page.dart';
 import 'package:trips/colors.dart';
-import 'package:trips/homepage.dart';
 
 class VerificationCode extends StatelessWidget {
   const VerificationCode({super.key});
@@ -10,6 +9,7 @@ class VerificationCode extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double highOfScreen = MediaQuery.of(context).size.height;
+
     return Scaffold(
       backgroundColor: AppColor.firstColor,
       body: Container(
@@ -44,7 +44,7 @@ class VerificationCode extends StatelessWidget {
                       height: 70,
                     ),
                     OtpTextField(
-                      numberOfFields: 5,
+                      numberOfFields: 6,
                       fieldWidth: 50,
 
                       //   borderRadius: const BorderRadius.all(Radius.circular(25)),
@@ -54,12 +54,8 @@ class VerificationCode extends StatelessWidget {
                       //set to true to show as box or false to show as dash
                       showFieldAsBox: false,
                       //runs when every textfield is filled
-                      onSubmit: (String verificationCode) {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const HomePage()));
-                      }, // end onSubmit
+                      onSubmit:
+                          (String verificationCode) async {}, // end onSubmit
                     ),
                   ],
                 ),

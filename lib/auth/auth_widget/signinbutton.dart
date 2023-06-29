@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:trips/colors.dart';
 
-class SigninButton extends StatelessWidget {
+class SignButton extends StatelessWidget {
   final String label;
   final Function() onTap;
-  const SigninButton({super.key, required this.label, required this.onTap});
+  const SignButton({super.key, required this.label, required this.onTap});
 
   @override
   Widget build(BuildContext context) {

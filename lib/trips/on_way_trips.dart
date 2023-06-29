@@ -1,8 +1,9 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:trips/colors.dart';
 import 'package:trips/traipsmap.dart';
+import 'package:trips/trips/trips_widget/buy_ticket.dart';
 import 'package:trips/trips/trips_widget/custom_appbar.dart';
+import 'package:trips/trips/trips_widget/warning_dialog.dart';
 
 late String from;
 late String to;
@@ -65,32 +66,37 @@ class _OneWayTripsState extends State<OneWayTrips> {
                                 ? Colors.green
                                 : Colors.red,
                           ),
-                          trailing: Icon(
-                            (trips[i]['curlocation']['online'] == true)
-                                ? Icons.my_location
-                                : Icons.location_disabled,
-                            size: 30,
-                            color: AppColor.firstColor,
+                          trailing: IconButton(
+                            icon: Icon(
+                              (trips[i]['curlocation']['online'] == true)
+                                  ? Icons.my_location
+                                  : Icons.location_disabled,
+                              size: 30,
+                              color: AppColor.firstColor,
+                            ),
+                            onPressed: () {
+                              if (trips[i]['curlocation']['online'] == true) {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => TripsMap(
+                                              deslocation: deslocation,
+                                              srclocation: srclocation,
+                                              curlocation: trips[i]
+                                                  ['curlocation'],
+                                            )));
+                              } else {
+                                warningDialog(context,
+                                    "The Trip is not available on map");
+                              }
+                            },
                           ),
                           onTap: () {
-                            if (trips[i]['curlocation']['online'] == true) {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => TripsMap(
-                                            deslocation: deslocation,
-                                            srclocation: srclocation,
-                                            curlocation: trips[i]
-                                                ['curlocation'],
-                                          )));
+                            if (trips[i]['status']) {
+                              buyTicketDialog(context);
                             } else {
-                              AwesomeDialog(
-                                context: context,
-                                dialogType: DialogType.warning,
-                                animType: AnimType.scale,
-                                desc: " The Trip is not available ",
-                                btnOkOnPress: () {},
-                              ).show();
+                              warningDialog(
+                                  context, "The Trip is not available ");
                             }
                           },
                         ),
